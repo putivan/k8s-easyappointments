@@ -1,0 +1,55 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+  creationTimestamp: null
+  labels:
+    service: database
+  name: database
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        service: database
+    spec:
+      containers:
+      - args:
+        - mysqld
+        - --default-authentication-plugin=mysql_native_password
+        env:
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: easyappointment-config
+              key: MYSQL_DATABASE
+        - name: MYSQL_PASSWORD
+          valueFrom: 
+            configMapKeyRef:
+              name: easyappointment-config
+              key: MYSQL_PASSWORD
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: easyappointment-config
+              key: MYSQL_ROOT_PASSWORD
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: easyappointment-config
+              key: MYSQL_USER 
+        image: putical/mysql
+        name: database
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: easy-appointments-data
+      restartPolicy: Always
+      volumes:
+      - name: easy-appointments-data
+        persistentVolumeClaim:
+          claimName: easy-appointments-data
+status: {}

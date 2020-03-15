@@ -1,0 +1,99 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+  creationTimestamp: null
+  labels:
+    service: application
+  name: application
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        service: application
+    spec:
+      containers:
+      - env:
+        - name: APP_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: easyappointment-config
+              key: APP_HOST    
+        - name: APP_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: easyappointment-config
+              key: APP_PORT
+        - name: APP_URL
+          valueFrom:
+            configMapKeyRef:
+              name: easyappointment-config
+              key: APP_URL
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: easyappointment-config
+              key: DB_USERNAME
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: easyappointment-config
+              key: DB_NAME
+        - name: DB_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: easyappointment-config
+              key: DB_PASSWORD
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: easyappointment-config
+              key: DB_HOST
+        - name: EMAIL_PROTOCOL
+          valueFrom:
+            configMapKeyRef:
+              name: easyappointment-config
+              key: EMAIL_PROTOCOL
+        - name: SMTP_CRYPTO
+          valueFrom:
+            configMapKeyRef:
+              name: easyappointment-config
+              key: SMTP_CRYPTO
+        - name: SMTP_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: easyappointment-config
+              key: SMTP_HOST
+        - name: SMTP_PASS
+          valueFrom:
+            configMapKeyRef:
+              name: easyappointment-config
+              key: SMTP_PASS
+        - name: SMTP_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: easyappointment-config
+              key: SMTP_PORT
+        - name: SMTP_USER
+          valueFrom:
+            configMapKeyRef:
+              name: easyappointment-config
+              key: SMTP_USER
+        image: putical/easyappointments
+        name: application
+        ports:
+        - containerPort: 80
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/www/html/src/storage
+          name: easy-appointments-storage
+      restartPolicy: Always
+      volumes:
+      - name: easy-appointments-storage
+        persistentVolumeClaim:
+          claimName: easy-appointments-storage
+status: {}
