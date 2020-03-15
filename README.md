@@ -37,8 +37,8 @@ sgao@master:~/k8s-easyappointments$ kubectl get svc
 NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)     AGE
 application-clientA   ClusterIP   10.104.205.100   <none>        80/TCP      28m
 database-clientA      ClusterIP   None             <none>        55555/TCP   28m
-application-clientA   ClusterIP   10.104.205.101   <none>        80/TCP      50m
-database-clientA      ClusterIP   None             <none>        55555/TCP   50m
+application-clientB   ClusterIP   10.104.205.101   <none>        80/TCP      50m
+database-clientB      ClusterIP   None             <none>        55555/TCP   50m
 kubernetes            ClusterIP   10.96.0.1        <none>        443/TCP     27h
   
 sgao@master:~/k8s-easyappointments$ kubectl get pv
