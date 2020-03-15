@@ -1,7 +1,7 @@
 # k8s-easyappointments
 To deploy EasyAppoinments web app onto a kubernetes cluster:
  a). clone this repo ("https://github.com/putical/k8s-easyappointments.git") on a kubernetes cluster master node
- b). run command 'kubectl apply -f ./k8s-easyappointments/' to deploy the app
+ b). CD into the directory 'k8s-easyappointments', then run command 'kubectl apply -f ./' to deploy the app
 
 Note: this method is to deploy 'EasyAppointments' app for a sample client, after run the above command, below items will be deployed onto the kubernetes cluster: (yaml files are templates)
    1. two pods (one for application, the other for DB instance)
